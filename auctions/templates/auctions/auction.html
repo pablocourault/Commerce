@@ -32,11 +32,15 @@
         
         <div class="col-6">
 
-            {% if request.user.id in auction.followed_by %}
+            {% if request.user in auction.followed_by.all %}
 
             <h5> Remove to Watchlist: </h5> 
+
             {% else %}
+
             <h5> Add to Watchlist: </h5> 
+ 
+
             {% endif %}
 
         </div>

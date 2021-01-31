@@ -107,6 +107,7 @@ def publish(request):
 def oferta(request, numero):
 
     auction = Auction.objects.get(id=numero)
+    
     return render(request, "auctions/auction.html", {"auction": auction })
 
 
