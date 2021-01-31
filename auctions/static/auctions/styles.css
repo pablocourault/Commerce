@@ -1,0 +1,70 @@
+body {padding: 16px;}
+
+img {border: 1px solid #ddd;
+     padding: 4px;
+     border-radius: 4%;
+     max-width: 100%;
+     height: auto;
+     background-color: whitesmoke;}
+
+
+#formPublish {display:flex;
+              flex-direction: column;
+              padding-top: 16px;
+              margin-left: 128px;
+              width: min-content;
+              justify-content: center;}
+
+#formPublish label {padding-top: 16px;}
+
+#formPublish input {border-radius: 4px;
+                    box-shadow: none;
+                    border: 1px solid darkgray;}
+
+#formPublish textarea {border-radius: 4px;
+                       box-shadow: none;
+                       border: 1px solid darkgray;}
+
+#description {text-align: justify;}
+
+.detallefoto {font-family: cursive;
+              font-size: small;
+              font-weight: lighter;}
+
+
+
+                       
+.listaul > div {padding: 16px;
+            background-color:palegreen;
+            border-bottom: 1px solid darkgray;
+            margin-bottom: 8px;}
+
+.rowauction > div {padding: 16px;
+                   background-color:palegreen;}
+
+
+.editar {height: 30px;
+         min-width: 88px;
+         max-width: 88px;
+         float:right;
+         margin-top: 16px;
+         padding-top: 2px;
+         box-shadow: none;
+         background-color: #4d90fe;
+         border: 1px solid #3079ed;
+         border-radius: 4px;
+         font-family: arial,sans-serif;
+         font-size: 16px;
+         font-weight:normal;
+         text-align: center;
+         color: #fff;}
+
+.startingbid {font-family: 'Courier New', Courier, monospace;
+             font-size:smaller;
+             font-weight:normal;
+             color:dimgray}
+
+.view  {font-size:xx-large;
+        font-weight:normal;
+        padding: 16px;
+        margin: 16px;}

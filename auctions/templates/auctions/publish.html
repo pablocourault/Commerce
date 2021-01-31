@@ -1,0 +1,18 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<form action="{% url 'publish' %}" method="post">
+
+    {% csrf_token %}
+
+    <div id="formPublish">
+    {{ formulario }}
+
+    <input type="submit" class="editar" value="Save">
+    </div>
+
+ </form>
+
+
+{% endblock %}

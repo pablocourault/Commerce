@@ -1,0 +1,77 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+
+<div class="container">
+
+    <div class="row rowauction">
+        <div class="col-4">
+        <h5> Seeing: </h5> <h6>{{ auction.title }}</h6>
+        </div>
+
+        <div class="col-2">
+            <h5> Posted By: </h5> <h6>{{ auction.posted_by }}</h6>
+            </div>
+
+        <div class="col-3">
+            <h5> Category: {{ auction.category }}</h5>
+            <h6> <i>created {{ auction.posted_date }} </i> </h6>    
+        </div>    
+        
+        <div class="col-3">
+            <h5> Current price: USD {{ auction.maxim_bid }}</h5>
+            <h6> <i>Starting bid: USD {{ auction.starting_bid }} </i> </h6>    
+        </div>  
+        
+    </div>
+
+    {% if user.is_authenticated %}
+
+    <div class="row rowauction">
+        
+        <div class="col-6">
+
+            {% if request.user.id in auction.followed_by %}
+
+            <h5> Remove to Watchlist: </h5> 
+            {% else %}
+            <h5> Add to Watchlist: </h5> 
+            {% endif %}
+
+        </div>
+
+        <div class="col-6">
+            <h5> Place bid: </h5> 
+        </div>     
+        
+    </div>
+
+    {% endif %}
+
+    <div class="row rowauction">
+        <div class="col-6">
+            <center>
+            {% if auction.image_url %}
+
+                <img src="{{ auction.image_url }}" />
+                       
+            {% else %}
+
+            <img src="/static/auctions/noimage.png" />
+            
+            {% endif %}
+
+            </center>
+        </div>
+
+        <div class="col-6">
+           <h5 id="description"> {{ auction.description }} </h5>
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}

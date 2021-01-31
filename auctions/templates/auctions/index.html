@@ -1,0 +1,49 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+
+    <ul>
+        {% for auction in auctions %}  
+
+        <div class="container">
+            <div class="row listaul">
+                <div class="col-3">
+                    <center>
+
+                    {% if auction.image_url %}
+
+                    <a title="view" href="{% url 'oferta' auction.id %}">
+                        <img src="{{ auction.image_url }}" alt="view" /></a>
+                               
+                    {% else %}
+
+                    <a title="view" href="{% url 'oferta' auction.id %}" class="view">View</a><br><br>
+                    {% endif %}
+
+                    <text class="detallefoto"> <i>created {{ auction.posted_date }} </i> </text><br>
+                    <text class="detallefoto"> by {{ auction.posted_by }} </text>
+
+                   </center>
+                </div>
+
+                <div class="col-7">
+                    <h4> {{ auction.title }} </h4>
+                    <h7> {{ auction.description }} </h7>
+                </div>
+                <div class="col-2">
+                    <center>
+                    <h4>USD {{ auction.maxim_bid}}</h4>
+                    <h6><i>current price</i></h6>
+                    <br><br>
+                    <text class="startingbid">USD {{ auction.starting_bid}}</text><br>
+                    <text class="startingbid"><i>starting bid</i></text>
+                    </center>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </ul>
+
+{% endblock %}
