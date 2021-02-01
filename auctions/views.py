@@ -5,6 +5,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.forms import ModelForm
+from django import forms
+from decimal import Decimal 
 
 from .models import User, Auction, Oferta, Category
 
@@ -13,7 +15,7 @@ def index(request):
 
     # el filtro es como el where de sql
     # ver cómo ordenar un resultado, el signo - lo ordena en forma inversa
-    auctions = Auction.objects.filter(condition="active").order_by('-posted_date')
+    auctions = Auction.objects.filter(condition="active").order_by('posted_date')
     return render(request, "auctions/index.html", {"auctions": auctions })
 
 
@@ -107,8 +109,41 @@ def publish(request):
 def oferta(request, numero):
 
     auction = Auction.objects.get(id=numero)
-    
-    return render(request, "auctions/auction.html", {"auction": auction })
+
+    class Makebid(forms.Form):
+
+        bid = forms.DecimalField ( widget= forms.NumberInput,
+                                   required="True",
+                                   label=False,
+                                   max_digits=6,
+                                   decimal_places=2,
+                                   min_value= (auction.maxim_bid + Decimal(0.01)))
+
+
+    if request.method == "POST":
+
+        if request.POST.get('form_type') == "remove":
+
+            auction.followed_by.remove(request.user)
+            auction.save()
+
+        if request.POST.get('form_type') == "add":
+
+            auction.followed_by.add(request.user)
+            auction.save()
+
+        if request.POST.get('form_type') == "bid":
+
+           auction.maxim_bid = request.POST.get('bid')
+           auction.won_by = request.user
+           auction.save()
+
+           # nunca lo uso
+           oferta=Oferta(oferta=auction,offerer=request.user,bid=request.POST.get('bid'))
+           oferta.save()
+
+
+    return render(request, "auctions/auction.html", {"auction": auction, "formbid": Makebid()  })
 
 
 def categories(request):

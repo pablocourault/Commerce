@@ -25,6 +25,12 @@ img {border: 1px solid #ddd;
                        box-shadow: none;
                        border: 1px solid darkgray;}
 
+#formbid {display:flex;
+          flex-direction:row;
+          align-items: baseline;
+          justify-content: space-evenly;
+          }
+
 #description {text-align: justify;}
 
 .detallefoto {font-family: cursive;
@@ -35,12 +41,12 @@ img {border: 1px solid #ddd;
 
                        
 .listaul > div {padding: 16px;
-            background-color:palegreen;
+            background-color: lavender;
             border-bottom: 1px solid darkgray;
             margin-bottom: 8px;}
 
 .rowauction > div {padding: 16px;
-                   background-color:palegreen;}
+                   background-color: lavender;}
 
 
 .editar {height: 30px;
@@ -58,6 +64,21 @@ img {border: 1px solid #ddd;
          font-weight:normal;
          text-align: center;
          color: #fff;}
+
+.watchlist {height: 30px;
+            margin-top: 16px;
+            padding-top: 2px;
+            box-shadow: none;
+            background-color: #4d90fe;
+            border: 1px solid #3079ed;
+            border-radius: 4px;
+            font-family: arial,sans-serif;
+            font-size: 16px;
+            font-weight:normal;
+            text-align: center;
+            color: #fff;}
+
+.watchlist:hover {box-shadow: 4px 4px darkgray;}
 
 .startingbid {font-family: 'Courier New', Courier, monospace;
              font-size:smaller;

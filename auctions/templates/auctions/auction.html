@@ -29,24 +29,61 @@
     {% if user.is_authenticated %}
 
     <div class="row rowauction">
-        
+
         <div class="col-6">
 
-            {% if request.user in auction.followed_by.all %}
+            {% if request.user in auction.followed_by.all %} 
+            <center>
 
-            <h5> Remove to Watchlist: </h5> 
+            <form action="{% url 'oferta' auction.id %}" method="post">
+
+                {% csrf_token %}
+            
+                <div id="formRemove">
+                <input type="hidden" name="form_type" value="remove">
+                <input type="submit" class="watchlist" value="Remove from Watchlist">
+                </div>
+            
+            </form>
+
+            </center>
 
             {% else %}
 
-            <h5> Add to Watchlist: </h5> 
- 
+            <center>
+
+            <form action="{% url 'oferta' auction.id %}" method="post">
+
+                {% csrf_token %}
+            
+                <div id="formRemove">
+                <input type="hidden" name="form_type" value="add">
+                <input type="submit" class= "watchlist" value="Add to Watchlist">
+                </div>
+            
+            </form>
+
+            </center>
 
             {% endif %}
 
         </div>
 
         <div class="col-6">
-            <h5> Place bid: </h5> 
+
+            <form action="{% url 'oferta' auction.id %}" method="post">
+
+                {% csrf_token %}
+            
+                <div id="formbid">
+                <h5>Make a bid:</h5> 
+                {{ formbid }} 
+                <input type="hidden" name="form_type" value="bid">
+                <input type="submit" class= "watchlist" value="Submit">
+                </div>
+            
+            </form>
+
         </div>     
         
     </div>
