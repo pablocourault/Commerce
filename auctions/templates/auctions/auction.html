@@ -39,7 +39,7 @@
 
                 {% csrf_token %}
             
-                <div id="formRemove">
+                <div id="formRemoveAdd">
                 <input type="hidden" name="form_type" value="remove">
                 <input type="submit" class="watchlist" value="Remove from Watchlist">
                 </div>
@@ -56,7 +56,7 @@
 
                 {% csrf_token %}
             
-                <div id="formRemove">
+                <div id="formRemoveAdd">
                 <input type="hidden" name="form_type" value="add">
                 <input type="submit" class= "watchlist" value="Add to Watchlist">
                 </div>
@@ -76,7 +76,7 @@
                 {% csrf_token %}
             
                 <div id="formbid">
-                <h5>Place a bid:</h5> 
+                <h6>Send a bid:</h6> 
                 {{ formbid }} 
                 <input type="hidden" name="form_type" value="bid">
                 <input type="submit" class= "watchlist" value="Submit">
@@ -89,6 +89,56 @@
     </div>
 
     {% endif %}
+
+    {% if user.is_authenticated %}
+
+    <div class="row rowauction">
+        <div class="col-3">
+            <center>
+            {% if auction.image_url %}
+
+                <img src="{{ auction.image_url }}" />
+                       
+            {% else %}
+
+            <img src="/static/auctions/noimage.png" />
+            
+            {% endif %}
+
+            </center>
+        </div>
+
+        <div class="col-3">
+           <h6 id="description"> {{ auction.description }} </h6>
+        </div>
+
+        <div class="col-6" id="bidhistory">
+            <center>
+            <table class="table table-sm" style="width:80%">
+
+                <thead>
+                    <tr>
+                        <th>Offeror</th>
+                        <th>Bid</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for bidh in bidhistory %} 
+                <tr>
+                    <td> {{ bidh.offeror }} </td><td> {{ bidh.bid }} </td> <td> {{bidh.posted_date}}</td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </center>
+        </div>
+    </div>
+
+    {% else %}
 
     <div class="row rowauction">
         <div class="col-6">
@@ -107,12 +157,72 @@
         </div>
 
         <div class="col-6">
-           <h5 id="description"> {{ auction.description }} </h5>
+           <h6 id="description"> {{ auction.description }} </h6>
+        </div>
+
         </div>
     </div>
 
+    {% endif %}
+
+    {% if user.is_authenticated %}
+
+    <div class="row rowauction">
+
+        <div class="col-12">
+
+        <form action="{% url 'oferta' auction.id %}" method="post">
+
+        {% csrf_token %}
+    
+        <div id="formcomments">
+        <h6>Write a comment:</h6> 
+        {{ formcomments }} 
+        <input type="hidden" name="form_type" value="comment">
+        <input type="submit" class= "watchlist" value="Submit">
+        </div>
+    
+        </form>
+
+        </div>
+     </div>
+
+    {% endif %}
+
+    <div class="row rowauction">
+
+        <div class="col-12">
+            <center>
+            <table class="table table-sm" style="width:80%">
+
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Comment</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for comment in commenthistory %} 
+                <tr>
+                    <td> {{ comment.said_by }} </td><td> {{ comment.comment }} </td> <td> {{comment.posted_date}}</td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </center>
+
+        </div>
+
+    </div>
+
+
 
 </div>
+
 
 
 {% endblock %}

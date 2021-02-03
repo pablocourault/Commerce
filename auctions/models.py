@@ -37,13 +37,19 @@ class Auction(models.Model): # la subasta, el objeto a vender
 
 class Oferta(models.Model): # lo que ofrece pagar por una subasta cada usuario
     oferta = models.ForeignKey(Auction, on_delete=models.CASCADE, blank=False)
-    offerer = models.ForeignKey(User, on_delete=models.CASCADE, blank=False)
+    offeror = models.ForeignKey(User, on_delete=models.CASCADE, blank=False)
     bid =  models.DecimalField(blank=False, max_digits=6, decimal_places=2)
+    posted_date = models.DateField(blank=False, default=datetime.date.today)
 
     def __str__(self):
-        return f"{self.oferta} - Offerer: {self.offerer} - Bid: {self.bid} "
+        return f"{self.oferta} - Offerer: {self.offeror} - Bid: {self.bid} "
 
 
 class Comentario(models.Model): # realizados en una subasta
     said_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=False)
     auction = models.ForeignKey(Auction, on_delete=models.CASCADE, blank=False)
+    comment = models.TextField(max_length=640, blank=False, default="")
+    posted_date = models.DateField(blank=False, default=datetime.date.today)
+
+    def __str__(self):
+        return f"{self.said_by} - Comment: {self.comment} - Date: {self.posted_date} "

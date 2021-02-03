@@ -6,9 +6,10 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.forms import ModelForm
 from django import forms
-from decimal import Decimal 
+from decimal import Decimal
+import datetime
 
-from .models import User, Auction, Oferta, Category
+from .models import User, Auction, Oferta, Category, Comentario
 
 
 def index(request):
@@ -119,16 +120,25 @@ def oferta(request, numero):
                                    decimal_places=2,
                                    min_value= (auction.maxim_bid + Decimal(0.01)))
 
+    class Makecomment(forms.Form):
+
+        comment = forms.CharField ( widget=forms.Textarea(attrs={'rows':1, 'cols':104}),
+                                    required="True",
+                                    label=False,
+                                    max_length=640)
+
+
+    # ofertas ordenadas con las más recientes primero, el valor entre corchetes limita la cantidad
+    # de filas devueltas
+    bidhistory = Oferta.objects.filter(oferta=auction).order_by('-posted_date').order_by('-bid')[:6]
 
     if request.method == "POST":
 
         if request.POST.get('form_type') == "remove":
-
             auction.followed_by.remove(request.user)
             auction.save()
 
         if request.POST.get('form_type') == "add":
-
             auction.followed_by.add(request.user)
             auction.save()
 
@@ -138,12 +148,27 @@ def oferta(request, numero):
            auction.won_by = request.user
            auction.save()
 
-           # nunca lo uso
-           oferta=Oferta(oferta=auction,offerer=request.user,bid=request.POST.get('bid'))
+           oferta=Oferta(oferta=auction,offeror=request.user,bid=request.POST.get('bid'))
            oferta.save()
 
+        if request.POST.get('form_type') == "comment":
 
-    return render(request, "auctions/auction.html", {"auction": auction, "formbid": Makebid()  })
+            comment=Comentario(said_by=request.user,
+                               auction=auction,
+                               comment=request.POST.get('comment'))
+
+            comment.save()
+        
+ # comentarios ordenados por los más recientes primero, el valor entre corchetes 
+ # limita la cantidad de filas devueltas
+    commenthistory = Comentario.objects.filter(auction=auction).order_by('-posted_date')[:8]
+
+
+    return render(request, "auctions/auction.html", {"auction": auction, 
+                                                     "formbid": Makebid(),
+                                                     "bidhistory": bidhistory,
+                                                     "formcomments": Makecomment(),
+                                                     "commenthistory":commenthistory })
 
 
 def categories(request):
