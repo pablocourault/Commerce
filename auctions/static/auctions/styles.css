@@ -7,6 +7,10 @@ img {border: 1px solid #ddd;
      height: auto;
      background-color: whitesmoke;}
 
+#formCloseAuction {padding-top: 16px;
+                   padding-bottom: 16px;
+                   float: right;}
+
 
 #formPublish {display:flex;
               flex-direction: column;
@@ -51,6 +55,7 @@ img {border: 1px solid #ddd;
             margin-bottom: 8px;}
 
 .rowauction > div {padding: 16px;
+                   border-radius: 4px;
                    background-color: lavender;}
 
 
@@ -88,6 +93,23 @@ img {border: 1px solid #ddd;
             color: #fff;}
 
 .watchlist:hover {box-shadow: 4px 4px darkgray;}
+
+
+.closeauction {height: 30px;
+     margin-top: 16px;
+     padding-top: 2px;
+     box-shadow: none;
+     background-color: firebrick;
+     border: 1px solid firebrick;
+     border-radius: 4px;
+     font-family: arial,sans-serif;
+     font-size: 16px;
+     font-weight: bold;
+     text-align: center;
+     color: #fff;}
+
+.closeauction:hover {box-shadow: 4px 4px darkgray;}
+
 
 .startingbid {font-family: 'Courier New', Courier, monospace;
              font-size:smaller;

@@ -5,6 +5,38 @@
 
 <div class="container">
 
+    {% if user.is_authenticated %}
+
+        {% if request.user == auction.posted_by %} 
+
+            <div class="row">
+            <div class="col-12">
+
+                <form action="{% url 'oferta' auction.id %}" method="post">
+
+                    {% csrf_token %}
+            
+                    <div id="formCloseAuction">
+                    <input type="hidden" name="form_type" value="close">
+                    <input type="submit" class="closeauction" value="Close Auction">
+                    </div>
+            
+                    </form>
+                
+            </div>
+            </div>
+
+        {% else %}
+
+
+            <div class="row rowauction">
+            <div class="col-12">
+                NO DUEÑO
+            </div>
+            </div>
+
+        {% endif %}
+
     <div class="row rowauction">
         <div class="col-4">
         <h5> Seeing: </h5> <h6>{{ auction.title }}</h6>
@@ -26,50 +58,55 @@
         
     </div>
 
-    {% if user.is_authenticated %}
-
     <div class="row rowauction">
-
-        <div class="col-6">
-
-            {% if request.user in auction.followed_by.all %} 
-            <center>
-
-            <form action="{% url 'oferta' auction.id %}" method="post">
-
-                {% csrf_token %}
-            
-                <div id="formRemoveAdd">
-                <input type="hidden" name="form_type" value="remove">
-                <input type="submit" class="watchlist" value="Remove from Watchlist">
-                </div>
-            
-            </form>
-
-            </center>
-
-            {% else %}
-
-            <center>
-
-            <form action="{% url 'oferta' auction.id %}" method="post">
-
-                {% csrf_token %}
-            
-                <div id="formRemoveAdd">
-                <input type="hidden" name="form_type" value="add">
-                <input type="submit" class= "watchlist" value="Add to Watchlist">
-                </div>
-            
-            </form>
-
-            </center>
-
-            {% endif %}
-
+        <div class="col-12" style="border-bottom: 4px solid whitesmoke;">
         </div>
+    </div>
 
-        <div class="col-6">
+        {% if auction.condition == 'active' %}
+
+            <div class="row rowauction">
+
+            <div class="col-6">
+
+                {% if request.user in auction.followed_by.all %} 
+                    <center>
+
+                    <form action="{% url 'oferta' auction.id %}" method="post">
+
+                    {% csrf_token %}
+            
+                    <div id="formRemoveAdd">
+                    <input type="hidden" name="form_type" value="remove">
+                    <input type="submit" class="watchlist" value="Remove from Watchlist">
+                    </div>
+            
+                    </form>
+
+                    </center>
+
+                {% else %}
+
+                    <center>
+
+                    <form action="{% url 'oferta' auction.id %}" method="post">
+
+                    {% csrf_token %}
+            
+                    <div id="formRemoveAdd">
+                    <input type="hidden" name="form_type" value="add">
+                    <input type="submit" class= "watchlist" value="Add to Watchlist">
+                    </div>
+            
+                    </form>
+
+                    </center>
+
+                {% endif %}
+
+            </div>
+
+            <div class="col-6">
 
             <form action="{% url 'oferta' auction.id %}" method="post">
 
@@ -84,9 +121,11 @@
             
             </form>
 
-        </div>     
+            </div>     
         
-    </div>
+        </div>
+
+        {% endif %}
 
     {% endif %}
 
@@ -141,6 +180,7 @@
     {% else %}
 
     <div class="row rowauction">
+
         <div class="col-6">
             <center>
             {% if auction.image_url %}
@@ -160,10 +200,15 @@
            <h6 id="description"> {{ auction.description }} </h6>
         </div>
 
-        </div>
     </div>
 
     {% endif %}
+
+    <div class="row rowauction">
+        <div class="col-12" style="border-bottom: 4px solid whitesmoke;">
+        </div>
+    </div>
+
 
     {% if user.is_authenticated %}
 
@@ -218,8 +263,6 @@
         </div>
 
     </div>
-
-
 
 </div>
 
