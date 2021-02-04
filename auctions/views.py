@@ -122,7 +122,7 @@ def oferta(request, numero):
 
     class Makecomment(forms.Form):
 
-        comment = forms.CharField ( widget=forms.Textarea(attrs={'rows':1, 'cols':104}),
+        comment = forms.CharField ( widget=forms.Textarea(attrs={'rows':2, 'cols':104}),
                                     required="True",
                                     label=False,
                                     max_length=640)
@@ -158,6 +158,11 @@ def oferta(request, numero):
                                comment=request.POST.get('comment'))
 
             comment.save()
+
+        # close auction 
+        if request.POST.get('form_type') == 'close':
+            auction.condition = 'inactive'
+            auction.save()
         
  # comentarios ordenados por los más recientes primero, el valor entre corchetes 
  # limita la cantidad de filas devueltas
@@ -197,7 +202,7 @@ def categoryselected(request, category):
 @login_required
 def watchlist(request):
 
-    auctions = Auction.objects.filter(followed_by=request.user).order_by('-posted_date')
+    auctions = Auction.objects.filter(followed_by=request.user).filter(condition="active").order_by('-posted_date')
     return render(request, "auctions/index.html", {"auctions": auctions })
 
 

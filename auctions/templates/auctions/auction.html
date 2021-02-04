@@ -5,37 +5,33 @@
 
 <div class="container">
 
-    {% if user.is_authenticated %}
+    
 
         {% if request.user == auction.posted_by %} 
 
             <div class="row">
             <div class="col-12">
 
+                {% if auction.condition == 'active' %}
+
                 <form action="{% url 'oferta' auction.id %}" method="post">
 
                     {% csrf_token %}
-            
+
                     <div id="formCloseAuction">
                     <input type="hidden" name="form_type" value="close">
                     <input type="submit" class="closeauction" value="Close Auction">
                     </div>
             
-                    </form>
+                </form>
+
+                {% endif %}
                 
             </div>
             </div>
 
-        {% else %}
-
-
-            <div class="row rowauction">
-            <div class="col-12">
-                NO DUEÑO
-            </div>
-            </div>
-
         {% endif %}
+
 
     <div class="row rowauction">
         <div class="col-4">
@@ -58,10 +54,36 @@
         
     </div>
 
-    <div class="row rowauction">
-        <div class="col-12" style="border-bottom: 4px solid whitesmoke;">
+    {% if user.is_authenticated %}
+
+        {% if auction.condition == 'inactive' %}
+
+            <div class="row rowauction">
+                <div class="col-12">
+
+                    <center>
+
+                    <div class="alert alert-danger">
+                    AUCTION CLOSED
+
+                    {% if auction.won_by == request.user %}
+
+                        <b>YOU WON!!</b>
+
+                    {% endif %}
+                    </div>
+
+                </center>
+
+                </div>
+            </div>
+
+        {% endif %}
+
+        <div class="row rowauction">
+            <div class="col-12" style="border-bottom: 4px solid whitesmoke;">
+            </div>
         </div>
-    </div>
 
         {% if auction.condition == 'active' %}
 
@@ -210,7 +232,7 @@
     </div>
 
 
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and auction.condition == 'active' %}
 
     <div class="row rowauction">
 

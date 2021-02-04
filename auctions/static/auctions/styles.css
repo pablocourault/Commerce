@@ -1,4 +1,6 @@
-body {padding: 16px;}
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+
+body {padding: 24px;}
 
 img {border: 1px solid #ddd;
      padding: 4px;
@@ -6,6 +8,10 @@ img {border: 1px solid #ddd;
      max-width: 100%;
      height: auto;
      background-color: whitesmoke;}
+
+#title {font-family: 'Courgette', cursive;
+        font-size:  64px;
+        color:indianred}
 
 #formCloseAuction {padding-top: 16px;
                    padding-bottom: 16px;
@@ -38,8 +44,12 @@ img {border: 1px solid #ddd;
 
 #formcomments {display:flex;
                flex-direction:column;
-               align-items:center}
+               align-items:center;
+               }
 
+#formcomments > textarea {resize: none;
+                          font-size: small;
+                          padding: 4px}
 
 #description {text-align: justify;}
 
@@ -50,17 +60,16 @@ img {border: 1px solid #ddd;
 
                        
 .listaul > div {padding: 16px;
-            background-color: lavender;
-            border-bottom: 1px solid darkgray;
-            margin-bottom: 8px;}
+               background-color: gainsboro;
+               border-bottom: 1px solid darkgray;
+               margin-bottom: 8px;}
 
 .rowauction > div {padding: 16px;
-                   border-radius: 4px;
-                   background-color: lavender;}
+                   background-color: gainsboro;}
 
 
 .rowcomment > div {padding: 16px;
-                   background-color: lavender;}
+                   background-color: gainsboro;}
 
 
 .editar {height: 30px;

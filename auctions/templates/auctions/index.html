@@ -1,12 +1,21 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <h2>Active Listings</h2>
+        </div>
+    </div>
+</div>
 
     <ul>
         {% for auction in auctions %}  
 
         <div class="container">
+
             <div class="row listaul">
                 <div class="col-3">
                     <center>
