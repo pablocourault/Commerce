@@ -5,4 +5,4 @@ eBay-like e-commerce auction site that will allow users to post auction listings
 
 https://www.youtube.com/watch?v=KfFuD4z41EU
 
-![alt text](https://github.com/pablocourault/Bingo/blob/main/commerce2.png?raw=true)
+![alt text](https://github.com/pablocourault/Commerce/blob/main/commerce2.png?raw=true)
